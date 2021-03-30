@@ -1,26 +1,22 @@
 <?php
 
 include __DIR__.'/Game.php';
+include __DIR__.'/Player.php';
 
-$notAWinner;
+$game = new Game();
 
-$aGame = new Game();
+$game->addPlayer(new Player('Chet'));
+$game->addPlayer(new Player('Pat'));
+$game->addPlayer(new Player('Sue'));
 
-$aGame->add("Chet");
-$aGame->add("Pat");
-$aGame->add("Sue");
-
+$game->start();
 
 do {
+    $game->rollDice();
 
-    $aGame->roll(rand(0,5) + 1);
-
-    if (rand(0,9) == 7) {
-        $notAWinner = $aGame->wrongAnswer();
+    if (rand(0,9)) {
+        $notAWinner = $game->wrongAnswer();
     } else {
-        $notAWinner = $aGame->wasCorrectlyAnswered();
+        $notAWinner = $game->correctAnswer();
     }
-
-
-
 } while ($notAWinner);
